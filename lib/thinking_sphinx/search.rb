@@ -254,7 +254,8 @@ module ThinkingSphinx
             :all,
             :conditions => {klass.primary_key.to_sym => ids},
             :include    => options[:include],
-            :select     => options[:select]
+            :select     => options[:select],
+            :joins      => options[:joins]
           )
           ids.collect { |obj_id| instances.detect { |obj| obj.id == obj_id } }
         end
@@ -265,7 +266,7 @@ module ThinkingSphinx
       # 
       def instance_from_result(result, options)
         class_from_crc(result[:attributes]["class_crc"]).find(
-          result[:doc], :include => options[:include], :select => options[:select]
+          result[:doc], :include => options[:include], :select => options[:select], :joins => options[:joins]
         )
       end
       
